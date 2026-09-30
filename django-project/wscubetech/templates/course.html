@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .services-header{background:#0a1931;color:#fff;padding:60px 20px;text-align:center;}
+  .container{max-width:1100px;margin:auto;padding:40px 20px;}
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:25px;}
+  .card{background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);transition:0.3s;}
+  .card:hover{transform:translateY(-5px);}
+  .card h3{color:#0a1931;margin-bottom:10px;}
+  .card ul{padding-left:18px;line-height:1.8;color:#555;}
+</style>
+
+<div class="services-header">
+  <h1>Our Services</h1>
+  <p>WsCube Tech - Web, App & Digital Marketing Solutions</p>
+</div>
+
+<div class="container">
+  <div class="services-grid">
+    {% for service in services %}
+    <div class="card">
+      <h3>{{ service.icon }} {{ service.title }}</h3>
+      <p>{{ service.desc }}</p>
+      <ul>
+        {% for point in service.points %}
+          <li>{{ point }}</li>
+        {% endfor %}
+      </ul>
+      <a href="{% url 'contact' %}" class="btn">Get Quote</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+

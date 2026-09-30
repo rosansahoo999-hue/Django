@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/header.css">
+</head>
+<body>
+    <header>
+    <ul class="navbar">
+    <!-- {{request.path}} -->
+    <li class="{% if request.path == '/' %} active {% endif %}"><a href="{% url 'home' %}">Home</a></li>
+    <li class="{% if request.path == '/course/' %} active {% endif %}"><a href="/course">Services</a></li>
+    <li class="{% if request.path == '/about-us/' %} active {% endif %}"><a href="{% url 'about' %}">About</a></li>
+    <li><a href="/user-form">Form</a></li>
+    <li><a href="/user-post">POST</a></li>
+    <li><a href="/calculator">calculator</a></li>
+
+    {% url 'contact' as urls %}
+    <li class="{% if request.path == urls %} active {% endif %}"><a href="{{urls}}">Contact</a></li>
+    </ul>
+    </header>
+</body>
+</html>

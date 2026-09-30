@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .contact-wrap{max-width:1100px;margin:auto;padding:40px 20px;display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .info{background:#0a1931;color:#fff;padding:40px;border-radius:12px;}
+  .info h2{margin-bottom:20px;}
+  .info p{margin:10px 0;opacity:0.9;}
+  .form-box{background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+  .form-box input, .form-box select, .form-box textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:6px;}
+  .form-box button{width:100%;background:#0066ff;color:#fff;padding:12px;border:none;border-radius:6px;font-size:16px;cursor:pointer;margin-top:10px;}
+  .form-box button:hover{background:#0052cc;}
+  @media(max-width:768px){.contact-wrap{grid-template-columns:1fr;}}
+</style>
+
+<div class="contact-wrap">
+  <div class="info">
+    <h2>Contact WsCube Tech</h2>
+    <p>📍 Ground Floor, Laxmi Tower, Bhaskar Circle, Ratanada, Jodhpur</p>
+    <p>📞 +91-90242-44886</p>
+    <p>📧 info@wscubetech.com</p>
+    <br>
+    <p>Have an idea? Let's build it together.</p>
+  </div>
+
+  <div class="form-box">
+    <h3>Send a Message</h3>
+    {% if messages %}
+      {% for message in messages %}
+        <p style="color:green;">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.name }}
+      {{ form.email }}
+      {{ form.phone }}
+      {{ form.service }}
+      {{ form.message }}
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

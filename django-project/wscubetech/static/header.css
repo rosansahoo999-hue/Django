@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    list-style: none;
+    width: 500px;
+    margin: 20px;
+    justify-content: space-evenly;
+}
+
+.navbar li a{
+    text-decoration: none;
+}
+
+.active a{
+    background-color: red;
+}

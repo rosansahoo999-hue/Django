@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<section class="feature-area section-gap" id="service">
+    <div class="container">
+        <div class="menu-content pb-60 col=lg-8">
+            <div class="title text-center">
+                <h1 class="mb-10">User Form(GET)</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form action="">
+                    <div>
+                        <label for="num 1">Value 1</label>
+                        <input type="text" name="num1" class="form-control">
+                    </div>
+                    <div>
+                        <label for="num 2">Value 2</label>
+                        <input type="text" name="num2" class="form-control">
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit">Save</button>
+                    </div>
+                    output: 
+                    <input type="text" value="{{output}}" />
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
