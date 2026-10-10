@@ -260,3 +260,7 @@ how dynamic content will be inserted.
 3. In views.py, get number using request.POST.get() and convert it to integer.
 4. Use logic if num % 2 == 0 to check Even, else Odd.
 5. Send the result to template through context {'result': result} and display with {{ result }}.
+
+## 32. How to create Simple Marksheet in Django:- 
+
+## 33. Manual Form Validation in Django:-
