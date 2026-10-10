@@ -33,4 +33,5 @@ urlpatterns = [
     path("user-post/", views.userForm_post),
     path('submitform/', views.submitform, name='submitform'),
     path('calculator/', views.calculator),
+    path('even-odd/', views.evenodd)
 ]

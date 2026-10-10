@@ -16,6 +16,7 @@
     <li><a href="/user-form">Form</a></li>
     <li><a href="/user-post">POST</a></li>
     <li><a href="/calculator">calculator</a></li>
+    <li><a href="/even-odd">even_odd</a></li>
 
     {% url 'contact' as urls %}
     <li class="{% if request.path == urls %} active {% endif %}"><a href="{{urls}}">Contact</a></li>
