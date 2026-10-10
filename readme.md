@@ -262,5 +262,15 @@ how dynamic content will be inserted.
 5. Send the result to template through context {'result': result} and display with {{ result }}.
 
 ## 32. How to create Simple Marksheet in Django:- 
+1. Model banao: Student model me name aur 5 subjects (hindi, english, math, science, computer) ke marks ke fields rakho.
+2. Form / View: Ek view banao jisme POST se marks lo aur total = sum, percentage = total/5, result = Pass if all >33 else Fail calculate karo.
+3. Template: Ek HTML form banao marks enter karne ke liye aur ek result page jisme total, percentage, grade (A/B/C) dikhe.
+4. URL map karo: path('marksheet/', views.marksheet) se page ko connect karo.
+5. Save (Optional): Chaho to result ko DB me save kar do taaki baad me dekh sako.
 
 ## 33. Manual Form Validation in Django:-
+1. Kya hai: Django ke built-in Form ka use kiye bina, request.POST se data lekar khud check karna.
+2. View me check: if not name ya if marks > 100 or marks < 0 jaise if-else lagake error pakdo.
+3. Error dikhana: Koi error mile to usko list/dict me daalke wapas same template pe {{ errors }} ke through dikhao.
+4. Fayda: Full control milta hai, custom logic (e.g. "Honey Singh ka naam allowed nahi") laga sakte ho.
+5. Nuksaan: Code lamba hota hai, isiliye real project me Django Forms / clean() method use karna better hai.
