@@ -274,3 +274,10 @@ how dynamic content will be inserted.
 3. Error dikhana: Koi error mile to usko list/dict me daalke wapas same template pe {{ errors }} ke through dikhao.
 4. Fayda: Full control milta hai, custom logic (e.g. "Honey Singh ka naam allowed nahi") laga sakte ho.
 5. Nuksaan: Code lamba hota hai, isiliye real project me Django Forms / clean() method use karna better hai.
+
+## 34. What is Model? Models in Your Django Application:-
+1. Kya hai: Model Python class hai jo Database ki table ko represent karti hai. Har class = 1 table, har variable = 1 column.
+2. Kaam: Isse bina SQL likhe Python se hi data create/read/update/delete kar sakte ho. Ye Django ka ORM hai.
+3. Example: class Student(models.Model): name = CharField, marks = IntegerField -> isse DB me student table ban jayegi.
+4. Process: Model likhne ke baad python manage.py makemigrations + migrate chalana padta hai tabhi table banti hai.
+5. Fayda: Ek baar Model ban gaya to poore project me Student.objects.all() se data kahi bhi use kar sakte ho.
