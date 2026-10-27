@@ -109,8 +109,8 @@ how dynamic content will be inserted.
 # 11. How to Create Super User in Django:-
 > command:- python manage.py createsuperuser
 - username:- enter your name (admin, user).
-- email:- enter your email.
-- password:- enter you choice password. (babu@987)
+- email:- enter your email. 
+- password:- enter you choice password. (admin123)
 
 ## 12. What are URLs & Views in Django ? Why to use it?
 > URLs(Route):-
@@ -281,3 +281,15 @@ how dynamic content will be inserted.
 3. Example: class Student(models.Model): name = CharField, marks = IntegerField -> isse DB me student table ban jayegi.
 4. Process: Model likhne ke baad python manage.py makemigrations + migrate chalana padta hai tabhi table banti hai.
 5. Fayda: Ek baar Model ban gaya to poore project me Student.objects.all() se data kahi bhi use kar sakte ho.
+6. command:-
+> python manage.py startapp service
+> python manage.py makemigrations
+> python manage.py migrate
+
+## 35. Creating a Model in Django:- 
+
+## 36. How to Get All Table Data in Django Objects All():-
+
+## 37. How to order a query set in Ascending or Decending:-
+
+## 38. Limiting Query Results:-

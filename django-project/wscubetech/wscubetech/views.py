@@ -1,8 +1,14 @@
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import usersForm
+from service.models import Service
 
 def homePage(request):
+    serviceData = Service.objects.all().order_by('-service_title') # descending / without (-):- aceseding
+
+    # for a in serviceData:
+    #     print(a)
+    # print(Service)
     data = {
         'title': 'Home New',
         'bdata': 'WelCome to WsCubeTech',
@@ -12,6 +18,7 @@ def homePage(request):
             {'name': 'rosan', 'phone': 9309520974},
             {'name': 'ritu', 'phone': 8328905591}
         ]
+        # 'serviceData':serviceData
     }
     return render(request, "index.html", data)
 
