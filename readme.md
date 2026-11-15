@@ -287,9 +287,113 @@ how dynamic content will be inserted.
 > python manage.py migrate
 
 ## 35. Creating a Model in Django:- 
+1. Model Kya Hai?
+Django me Model ek Python class hoti hai jo database ki table ko represent karti hai. Hum Python me code likhte hai, Django use database me table bana deta hai. Hame SQL likhne ki jarurat nahi padti.
+2. Model = Table, Field = Column, Object = Row
+Ye relation hamesha yaad rakhna:Ek Model Class = Database ki 1 TableUske andar ke Field = Table ke ColumnJab hum uska object banate hai = Table me 1 Row add ho jati hai
+3. Model models.Model Se Banta Hai
+Har Model django.db.models.Model class se inherit hota hai. Isse Django ko pata chalta hai ki ye normal class nahi, database wali class hai. Ye hamesha app ke models.py file me likha jata hai.
+4. ORM Ka Kaam Karta Hai 
+Django ka ORM (Object Relational Mapper) Model aur Database ke beech ka translator hai. Hum Python me Student.objects.all() likhte hai, ORM use SQL query SELECT * FROM student me badal deta hai.
+5. Bina Migration Ke Table Nahi Banta
+Sirf Model likhne se table nahi banta. Uske liye 2 step chahiye:makemigrations = Model ka blueprint banata haimigrate = Us blueprint se asli database me table banata haiEk line me yaad kar: Model Python me likhi gayi database table ki paribhasha hai.
 
 ## 36. How to Get All Table Data in Django Objects All():-
+1. objects Ek Manager Hota Hai
+Har Model ke paas by-default ek objects naam ka Manager hota hai. Ye Model aur Database ke beech ka bridge hai. Isi ki madad se hum database se data mangte hai.
+2. all() Saara Data Laata Hai
+ModelName.objects.all() us table ki saari rows ko utha ke le aata hai. Jaise:pythonall_students = Student.objects.all()Iska matlab - SELECT * FROM student wali query chal gayi.
+3. Ye List Nahi, QuerySet Deta Hai
+all() hame normal Python list nahi deta, QuerySet deta hai. QuerySet list jaisa hi dikhta hai, par isme Django ke extra power hote hai jaise filter(), count(), order_by() lagana.
+4. Ye Lazy Hota Hai
+Matlab jab tak hum us data ko use nahi karenge (jaise loop me ya print me), tab tak Django database se data uthata hi nahi. Ye Django ko fast banata hai.
+5. Ise Loop Me Chalake Dikhate Hai
+Template ya View me ise for loop me chalate hai:pythonfor student in Student.objects.all():
+    print(student.name)
 
 ## 37. How to order a query set in Ascending or Decending:-
+1. Order Karne Ke Liye order_by() Lagta Hai
+objects.all() se data jaisa database me pada hai waisa hi aata hai. Use sajane ke liye order_by() use hota hai. Ye QuerySet ke upar lagta hai.
+2. Ascending Ke Liye Seedha Naam Likho
+Agar chhote se bade ki taraf chahiye, toh field ka naam seedha likh do. Ye by-default Ascending hi hota hai.pythonStudent.objects.all().order_by('age')
+ 10, 15, 20 -> Aise aayega3. Descending Ke Liye - (Minus) Lagao
+Agar bade se chhote ki taraf chahiye, toh field ke naam ke aage - laga do. Bas yahi ek farak hai.pythonStudent.objects.all().order_by('-age')
+ 20, 15, 10 -> Aise aayega4. Ye Database Me Hi Sorting Karta Hai
+Ye Python me list ko sort nahi karta, ye database ko bolta hai ORDER BY lagake de. Isliye ye bahut fast hota hai, chahe lakhon data ho.
+5. Ek Se Zyada Field Se Bhi Sort Kar Sakte Hai
+Pehle ek se, phir dusre se sort karna ho toh comma lagake likh do.pythonStudent.objects.all().order_by('name', '-age')
+ Pehle naam A-Z, phir usme age badi se chhoti
 
 ## 38. Limiting Query Results:-
+1. Limit Ka Matlab Hai Kam Data Lana
+Table me agar 1000 data hai, toh hame saara nahi chahiye. Sirf pehle 5 ya 10 chahiye. Ise hi Limiting kehte hai. Isse website fast chalti hai.
+2. Limit Ke Liye Python Jaisi Slicing Lagti Hai
+Django me limit ke liye list jaisi [start:end] wali slicing lagti hai.pythonStudent.objects.all()[:5]   # Sirf pehle 53. Ye Database Me LIMIT Ban Jata Hai
+Jab hum [:5] likhte hai, Django database ko bolta hai LIMIT 5. Matlab database se sirf 5 hi row aati hai, 1000 nahi. Isliye ye bahut fast hota hai.
+4. Beech Ka Data Bhi Le Sakte Hai
+Slicing se beech ka page bhi nikal sakte hai, ise Pagination kehte hai.pythonStudent.objects.all()[5:10]  # 6th se 10th tak
+5. Negative Slicing Nahi Chalti
+Python list me [-5:] chal jata hai, par Django QuerySet me ye nahi chalta. Hamesha positive number hi dena hai, warna error aayega.
+Ek line me yaad kar: [:5] = Sirf 5 Lao, [5:10] = Agle 5 Lao.
+
+## 39. Custom Template Filter in Django:-
+1. Filter Kya Hota Hai?
+Template me data ko dikhane se pehle thoda badalne ke liye Filter use hota hai. Jaise naam ko bada karna, date ko sundar dikhana. Ye | (pipe) se lagta hai.html{{ name|upper }}
+2. Jab Built-in Filter Kaam Na Aaye
+Django me pehle se upper, lower, date jaise filter hote hai. Par jab hame apna alag kaam karna ho, jaise ₹ lagana ya naam ke aage Mr. lagana, tab hum Custom Filter banate hai.
+3. Ye templatetags Folder Me Banta Hai
+Custom Filter kahin bhi nahi banta. App ke andar templatetags naam ka folder banana padta hai, usme my_filters.py jaisi file banani padti hai. Aur us folder me *init*.py bhi hona chahiye.
+4. @register.filter Se Register Hota Hai
+Filter banane ke baad use register karna padta hai, warna Django use pehchanega nahi.pythonfrom django import template
+register = template.Library()
+
+@register.filter
+def my_filter(value):
+    return value + " - Rosan"
+
+5. Template Me Load Karke Use Karte Hai
+Use karne se pehle template me sabse upar load karna padta hai.html{% load my_filters %}
+{{ name|my_filter }}
+
+## 40. Django TinyMCE Integration with News App:-
+- pip install django-tinymce
+- setting install_app add tinymce.
+1. TinyMCE Kya Hai?
+TinyMCE ek WYSIWYG Editor hai, matlab What You See Is What You Get. Normal text box ki jagah ye MS Word jaisa editor de deta hai, jisme Bold, Image, Link, Color sab hota hai.
+2. News App Me Iski Jarurat Kyu Hai?
+News me sirf sadha text nahi chalta. Heading, photo, bold news, link sab chahiye hota hai. Agar hum normal TextField use karenge toh sab ek jaisa dikhega. Isliye News ke description ke liye TinyMCE lagate hai.
+3. Pehle Install + Settings Me Add Karna Hai
+Ise use karne ke liye pehle package install karna padta hai, phir settings me add karna padta hai.bashpip install django-tinymcepython# settings.py me
+INSTALLED_APPS = [..., 'tinymce']
+4. Model Me HTMLField Lagta Hai
+News wale Model me TextField ki jagah HTMLField use hota hai. Ye HTML tag ke saath data save karta hai.pythonfrom tinymce.models import HTMLField
+
+class News(models.Model):
+    title = models.CharField(max_length=200)
+    description = HTMLField()
+
+5. Admin Me Editor Khud Aa Jata Hai
+Model me HTMLField lagate hi, Admin Panel me us jagah automatic TinyMCE editor aa jata hai. Wahan se likhi hui news, website par waisi hi sundar dikhti hai, kyunki template me |safe lagake dikhate hai.html{{ news.description|safe }}
+
+## 41. Marquee Tag for Display News in Django:-
+1. Marquee Kya Hai?
+Marquee ek HTML tag hai jo text ko chalata hai. News channel me neeche jo breaking news chalti hui dikhti hai, wo Marquee hi hota hai. Isse news ek jagah ruki nahi rehti, chalti rehti hai.
+2. Django Me Data Loop Se Aata Hai
+Marquee khud data nahi banata, wo sirf dikhata hai. Data Django ke View se aata hai, aur template me for loop se Marquee ke andar lagaya jata hai.html<marquee>
+  {% for n in news %}
+    {{ n.title }} ***
+  {% endfor %}
+</marquee>
+
+3. Direction Se Disha Badal Sakte Hai
+Marquee kidhar chalega, ye direction se tay hota hai. By-default left ko chalta hai.html<marquee direction="left">News...</marquee>
+<marquee direction="right">News...</marquee>
+<marquee direction="up">News...</marquee>
+
+4. Speed Aur Rukne Ke Liye Attribute Hote Hai
+News kitni tez chalegi aur mouse rakhne pe rukegi ya nahi, ye isse control hota hai.
+scrollamount="5" = Speedonmouseover="this.stop();" = Mouse rakhne pe ruk jayegaonmouseout="this.start();" = Mouse hatane pe phir chalega
+5. Ye Sirf Display Ke Liye Hai
+Yaad rakhna, Marquee data ko save nahi karta, sirf dikhata hai. Asli kaam Django ka News Model aur objects.all() karta hai. Marquee sirf usko sundar aur chalti hui style me dikhata hai.
+
+## 42. Display News in Detail Page with Dynamic URL:-

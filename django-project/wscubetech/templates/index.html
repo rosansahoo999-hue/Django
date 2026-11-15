@@ -1,6 +1,12 @@
     {% extends 'base.html' %}
     
     {% block content %}
+
+    <marquee>
+        {% for news in newsData %}
+           <a href=""> {{news.news_title}} </a> &nbsp;&nbsp;&nbsp;
+        {% endfor %}
+    </marquee>
         
     <!-- <div class="main">{{bdata}}  {{clist}}</div> -->
     {% for n in clist %}

@@ -2,9 +2,11 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import usersForm
 from service.models import Service
+from news.models import News
 
 def homePage(request):
-    serviceData = Service.objects.all().order_by('-service_title') # descending / without (-):- aceseding
+    newsData=News.objects.all()
+    serviceData = Service.objects.all().order_by('-service_title')[2:5] # descending / without (-):- aceseding
 
     # for a in serviceData:
     #     print(a)
@@ -17,8 +19,9 @@ def homePage(request):
         'student_details': [
             {'name': 'rosan', 'phone': 9309520974},
             {'name': 'ritu', 'phone': 8328905591}
-        ]
-        # 'serviceData':serviceData
+        ],
+        'serviceData':serviceData,
+        'newsData': newsData,
     }
     return render(request, "index.html", data)
 
@@ -54,6 +57,13 @@ def aboutUs(request):
         output=request.GET.get('output')
     # return HttpResponse("<b>Welcome To WsCubeTech</b>")
     return render(request,"about.html",{'output':output})
+
+def services(request):
+    servicesData = Service.objects.all().order_by('-service_title')
+    data={
+        'servicesData': servicesData
+    }
+    return render(request, "services.html")
 
 def course(request):
     return render(request, "course.html")
